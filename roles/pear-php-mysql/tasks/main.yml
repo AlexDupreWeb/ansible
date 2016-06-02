@@ -1,0 +1,24 @@
+---
+
+- name: Ensure php is installed.
+  apt: pkg=php5  state=present
+
+- name: Ensure pear is installed.
+  apt: pkg=php-pear state=present
+
+- name: Ensure pear MDB2 is installed (1/2).
+  apt: pkg=php-mdb2-driver-mysql state=present
+
+- name: Ensure pear MDB2 is installed (2/2).
+  command: pear install MDB2 MDB2_Driver_Mysql
+
+- name: Ensure curl is installed.
+  apt: pkg=php5-curl state=present
+
+- name: Ensure mcrypt is installed.
+  apt: pkg=php5-mcrypt state=present
+
+- name: Ensure gd library is installed.
+  apt: pkg=php5-gd state=present
+
+...

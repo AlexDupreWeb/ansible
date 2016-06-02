@@ -1,0 +1,12 @@
+---
+
+- name: Ensure vim is installed.
+  apt: pkg=vim state=present
+
+- name: Ensure htop is installed.
+  apt: pkg=htop state=present
+
+- name: Ensure git is installed.
+  apt: pkg=git state=present
+
+...

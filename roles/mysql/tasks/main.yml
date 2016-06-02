@@ -1,0 +1,6 @@
+---
+
+- name: Ensure mysql is installed.
+  apt: pkg=mysql-server state=present
+
+...
