@@ -2,19 +2,24 @@
 
 # Install
 - name: Ensure apache2 is installed.
+  become: yes
   apt: pkg=apache2 state=present
 
 # Config
 - name: Enable proxy
+  become: yes
   apache2_module: state=present name=proxy
 
 - name: Enable proxy_http
+  become: yes
   apache2_module: state=present name=proxy_http
 
 - name: Enable mod_rewrite
+  become: yes
   apache2_module: state=present name=rewrite
 
 - name: Enable headers
+  become: yes
   apache2_module: state=present name=headers
 
 ...

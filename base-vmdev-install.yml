@@ -1,0 +1,11 @@
+---
+- name: Install Debian Webserver for Symfony Developement
+  hosts: debian
+
+  roles:
+      - common-tools
+      - apache
+      - php
+      - mysql
+
+...

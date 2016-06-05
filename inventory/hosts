@@ -1,0 +1,2 @@
+[debian]
+127.0.0.1 ansible_ssh_user=alexandre ansible_ssh_pass=motdepasse ansible_sudo_pass=motdepasse

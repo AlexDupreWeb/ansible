@@ -1,0 +1,15 @@
+---
+
+- name: Ensure pear is installed.
+  become: yes
+  apt: pkg=php-pear state=present
+
+- name: Ensure pear MDB2 is installed (1/2).
+  become: yes
+  apt: pkg=php-mdb2-driver-mysql state=present
+
+- name: Ensure pear MDB2 is installed (2/2).
+  become: yes
+  command: pear install MDB2 MDB2_Driver_Mysql
+
+...

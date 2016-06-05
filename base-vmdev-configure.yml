@@ -1,0 +1,80 @@
+---
+- name: Config Debian Webserver for Marche Prive Developement
+  hosts: debian
+
+  vars:
+    user: alexandre
+    domain: local.adw.dev
+    domain_name: local.adw.dev
+
+    email: webmaster@localhost
+    www_path: /var/www/local.adw.dev
+    #www_path: /var/www/local-beta.dev
+
+  tasks:
+    - name: Apache start
+      service: name=apache2 state=started enabled=true
+
+    - name: Protection /var/www
+      become: yes
+      template: src=htaccess.j2 dest=/var/www/.htaccess
+      #when www_path != /var/www
+
+    - name: Create website folder
+      become: yes
+      register: result
+      file: path=/home/{{ user }}/{{ domain_name }} state=directory owner={{ user }}
+
+    - name: Add index.html
+      become: yes
+      template: src=index.j2 dest=/home/{{ user }}/{{ domain_name }}/index.html
+      #when folder
+
+    - name: Create link betwen www/ and folder project
+      become: yes
+      file: src=/home/{{ user }}/{{ domain_name }} dest=/var/www/{{ domain_name }} state=link
+
+    - name: Create vhost config {{ domain }}
+      become: yes
+      template: src=virtualhost.j2 dest=/etc/apache2/sites-available/{{ domain_name }}.conf
+
+    - name: Activate vhost {{ domain }}
+      become: yes
+      command: a2ensite {{ domain_name }}.conf
+
+    - name: Check if config is valid
+      become: yes
+      command: apache2ctl configtest
+      register: result
+      ignore_errors: True
+
+    - name: Rolling back - Restoring old default virtualhost
+      become: yes
+      command: a2ensite default
+      when: result|failed
+
+    - name: Rolling back - Removing our virtualhost
+      become: yes
+      command: a2dissite awesome-app
+      when: result|failed
+
+    - name: Rolling back - Ending playbook
+      fail: msg="Configuration file is not valid. Please check that before re-running the playbook."
+      when: result|failed
+
+    - name: Deactivates the default virtualhost
+      become: yes
+      command: a2dissite 000-default.conf
+
+    - name: Deactivates the default ssl virtualhost and restart apache
+      become: yes
+      command: a2dissite default-ssl.conf
+      notify:
+        - Restart Apache
+
+  handlers:
+    - name: Restart Apache
+      become: yes
+      action: service name=apache2 state=restarted
+
+...
