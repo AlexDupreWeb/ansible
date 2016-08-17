@@ -1,5 +1,10 @@
 # SERVER INSTALL
 
+> Télécharger l'iso ICI
+
+    cd /var/lib/vz/template/iso/
+    wget http://cdimage.debian.org/debian-cd/8.5.0/amd64/iso-cd/debian-8.5.0-amd64-netinst.iso
+
 > Manuel d'installation de serveurs dédiés
 
 ## Installation d'un serveur PROXMOX sur serveur dédié OVH
