@@ -1,0 +1,17 @@
+---
+- name: Install Debian Webserver for Symfony Developement
+  hosts: localhost
+
+  vars:
+    alex: test
+    roles_path: '{{ inventory_dir | dirname }}/roles'
+
+  roles:
+    - { role: '{{ roles_path }}/apache' }
+    - { role: '{{ roles_path }}/php7' }
+    - { role: '{{ roles_path }}/mysql' }
+
+  tasks:
+    #- debug: msg="[DEBUG] Roles_path = {{ roles_path }}"
+
+...

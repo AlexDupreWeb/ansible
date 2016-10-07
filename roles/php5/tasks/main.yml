@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure php is installed.
+- name: Ensure php5 is installed.
   become: yes
   apt: pkg=php5  state=present
 
@@ -8,9 +8,9 @@
   become: yes
   apt: pkg=php5-curl state=present
 
-- name: Ensure mcrypt is installed.
-  become: yes
-  apt: pkg=php5-mcrypt state=present
+#- name: Ensure mcrypt is installed.
+#  become: yes
+#  apt: pkg=php5-mcrypt state=present
 
 - name: Ensure gd library is installed.
   become: yes

@@ -1,0 +1,19 @@
+---
+
+- name: Ensure php7 is installed.
+  become: yes
+  apt: pkg=php7.0-cli  state=present
+
+- name: Ensure curl is installed.
+  become: yes
+  apt: pkg=php7.0-curl state=present
+
+#- name: Ensure mcrypt is installed.
+#  become: yes
+#  apt: pkg=php7.0-mcrypt state=present
+
+- name: Ensure gd library is installed.
+  become: yes
+  apt: pkg=php7.0-gd state=present
+
+...
